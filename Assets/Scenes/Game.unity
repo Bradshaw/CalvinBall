@@ -864,11 +864,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 442954, guid: df3102a70f0a9c74f8b953abcaa12dce, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 442954, guid: df3102a70f0a9c74f8b953abcaa12dce, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 442954, guid: df3102a70f0a9c74f8b953abcaa12dce, type: 2}
       propertyPath: m_LocalPosition.z
@@ -1914,7 +1914,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ball: {fileID: 2031496030}
-  randomness: .5
+  randomness: .850000024
 --- !u!114 &2093626258
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1938,8 +1938,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f730b5b43266cd4f8c4b51c4fe739f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HasBall: 1
-  TeamHasBall: 0
+  HasBall: 0
+  TeamHasBall: 1
   maxSpeed: 1.5
   maxSpeedBallMalus: 0
   acceleration: 5
