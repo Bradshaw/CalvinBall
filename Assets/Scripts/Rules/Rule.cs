@@ -11,7 +11,10 @@ public enum RuleType
 }
 
 public class Rule : MonoBehaviour {
-    public const string name = "NORULE";
-    public const RuleType type = RuleType.nil;
+
+    public override string ToString()
+    {
+        return "NORULE";
+    }
 
 }
