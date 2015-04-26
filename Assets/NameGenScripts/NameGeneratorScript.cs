@@ -25,7 +25,7 @@ public class NameGeneratorScript : MonoBehaviour {
 
 		initial_position = this.transform.position;
 
-		GetComponent<TextMesh>().font = fontList[Random.Range(0,fontList.Count-1)];
+		//GetComponent<TextMesh>().font = fontList[Random.Range(0,fontList.Count)];
 
 	}
 	
