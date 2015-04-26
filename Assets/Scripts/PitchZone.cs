@@ -19,8 +19,10 @@ public class PitchZone : MonoBehaviour {
             case "Ball":
                 GameEvent.RaiseOnBallZoneEnter(_col);
                 break;
-            case "Player":
+            case "Character":
                 GameEvent.RaiseOnPlayerZoneEnter(_col, col.GetComponent<PlayerCharacter>()); 
+                break;
+            default:
                 break;
         }
     }
@@ -32,7 +34,7 @@ public class PitchZone : MonoBehaviour {
             case "Ball":
                 GameEvent.RaiseOnBallZoneExit(_col);
                 break;
-            case "Player":
+            case "Character":
                 GameEvent.RaiseOnPlayerZoneExit(_col, col.GetComponent<PlayerCharacter>());
                 break;
         }
@@ -46,7 +48,7 @@ public class PitchZone : MonoBehaviour {
             case "Ball":
                 GameEvent.RaiseOnBallZoneExit(_col);
                 break;
-            case "Player":
+            case "Character":
                 GameEvent.RaiseOnPlayerZoneExit(_col, col.GetComponent<PlayerCharacter>());
                 break;
         }
