@@ -2,18 +2,15 @@
 using System.Collections;
 
 namespace Movement {
+	[RequireComponent(typeof(PlayerCharacter))]
 	[RequireComponent(typeof(Rigidbody2D))]
+	[RequireComponent(typeof(BallGrabber))]
 	public class SimpleMovement : MonoBehaviour {
 
 		Rigidbody2D rigid;
+		BallGrabber grabber;
 		AIControlled aiControl;
 		UserControlled userControl;
-		
-		[Header("Properties controlling behaviour")]
-		[Tooltip("Determines if the Character has the Ball or not")]
-		public bool HasBall;
-		[Tooltip("Determines if the Player's team has the Ball or not")]
-		public bool TeamHasBall;
 
 		[Header("Randomized Values controlling the Character")]
 		[Tooltip("Maximum Speed for the Character")]
@@ -41,18 +38,67 @@ namespace Movement {
 		[Header("Debug")]
 		public UnityEngine.UI.Text debugOut;
 
+
+		GameObject[] ownTeam {
+			get  {
+				return grabber.ownTeam;
+			}
+		}
+		
+		public bool hasBall {
+			get  {
+				return grabber.hasBall;
+			}
+			set  {
+				grabber.hasBall = hasBall;
+			}
+		}
+
+		public bool teamHasBall {
+			get  {
+				return grabber.teamHasBall;
+			}
+		}
+
 		Vector2 currentGoal;
+		GameObject ball;
 
 		public void RunTowards(Transform goal)  {
 			RunTowards (goal.position);
 		}
 		
 		public void RunTowards(Vector3 goal)  {
-			RunTowards (new Vector2(goal.x, goal.y));
+			var distance = goal - transform.position;
+			RunTowards (new Vector2 (distance.x, distance.y));
 		}
 
 		public void RunTowards(Vector2 goal)  {
 			currentGoal = goal;
+		}
+
+		public void PlayerControl()  {
+			aiControl.LooseControl();
+			userControl.GetControl();
+		}
+		public void AIControl()  {
+			aiControl.GetControl();
+			userControl.LooseControl();
+		}
+
+		public void GetBall()  {
+			hasBall = true;
+			TakeControl ();
+		}
+		
+		public void LooseBall()  {
+			hasBall = true;
+		}
+
+		public void TakeControl()  {
+			foreach (var Player in ownTeam)
+				if (Player.gameObject != gameObject)
+					Player.GetComponent<SimpleMovement> ().AIControl ();
+			PlayerControl ();
 		}
 
 		public Vector2 Forward {
@@ -81,6 +127,7 @@ namespace Movement {
 
 		// Use this for initialization
 		void Start () {
+			grabber = GetComponent<BallGrabber> ();
 			rigid = GetComponent<Rigidbody2D>();
 			aiControl = GetComponent<AIControlled>();
 			userControl = GetComponent<UserControlled>();
@@ -89,10 +136,11 @@ namespace Movement {
 		
 		// Update is called once per frame
 		void Update () {
-			if (HasBall && aiControl.HasControl()) {
-				aiControl.LooseControl();
-				userControl.GetControl();
-			}
+/*			teamHasBall = false;
+			SimpleMovement othermover;
+			foreach (var Player in ownTeam)
+				if ((othermover = Player.GetComponent<SimpleMovement> ()) != null && othermover.hasBall)
+					teamHasBall = true;*/
 		}
 
 		void RotateTowards(Vector2 goal)  {
@@ -114,10 +162,10 @@ namespace Movement {
 				debugOut.text = "";
 			//adapt values to if we have ball
 			float currentAcceleration = acceleration;
-			if (HasBall)
+			if (hasBall)
 				currentAcceleration -= accelerationBallMalus; 
 			float currentMaxSpeed = maxSpeed;
-			if (HasBall)
+			if (hasBall)
 				currentMaxSpeed -= maxSpeedBallMalus; 
 			Debug ("\nAcceleration: " + currentAcceleration.ToString ());
 			Debug ("\nMaxSpeed: " + currentMaxSpeed.ToString ());

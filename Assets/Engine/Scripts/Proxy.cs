@@ -7,7 +7,7 @@ namespace Engine {
 		public GameObject PersistentPrefab;
 		public string DefaultScene = "Menu";
 
-		private GameObject currentPersistent;
+		private static GameObject currentPersistent;
 		public GameObject current {
 			get {
 				if (currentPersistent==null)
@@ -27,6 +27,7 @@ namespace Engine {
 		}
 		// Use this for initialization
 		void Start () {
+			currentPersistent = null;
 			initPersistent ();
 		}
 		
