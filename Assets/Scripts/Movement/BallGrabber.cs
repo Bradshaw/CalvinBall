@@ -19,6 +19,7 @@ namespace Movement {
 		public bool TeamHasBall;
 
 		public static Team BallTeam;
+		public static GameObject BallOwner;
 		public bool hasBall {
 			get  {
 				return HasBall;
@@ -45,6 +46,7 @@ namespace Movement {
 			/*ball.parent = transform;
 			ball.localPosition = new Vector3 (ballRadius+characterRadius, 0, 0);*/
 			move.TakeControl ();
+			BallOwner = gameObject;
 		}
 		
 		
