@@ -3,9 +3,10 @@ using System.Collections;
 
 public class ScoreOnPass : Rule {
 
-    public const string name = "ScoreOnPass";
-    public const RuleType type = RuleType.points;
-
+    public override string ToString()
+    {
+        return "Score on pass";
+    }
 
     void OnEnable()
     {
