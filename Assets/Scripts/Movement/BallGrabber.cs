@@ -42,14 +42,14 @@ namespace Movement {
 			HasBall = true;
 			TeamHasBall = true;
 			BallTeam = playerC.team;
-			ball.parent = transform;
-			ball.localPosition = new Vector3 (ballRadius+characterRadius, 0, 0);
+			/*ball.parent = transform;
+			ball.localPosition = new Vector3 (ballRadius+characterRadius, 0, 0);*/
 			move.TakeControl ();
 		}
 		
 		
 		public void LooseBall()  {
-			ball.parent = null;
+			//ball.parent = null;
 			HasBall = true;
 		}
 
@@ -78,6 +78,9 @@ namespace Movement {
 
 			if (BallTeam == playerC.team)
 				TeamHasBall = true;
+
+			if (HasBall)
+				ball.position = transform.position + new Vector3(move.Forward.x, move.Forward.y, 0)*ballRadius;
 		}
 	}
 }
