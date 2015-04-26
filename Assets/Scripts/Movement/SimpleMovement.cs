@@ -4,9 +4,11 @@ using System.Collections;
 namespace Movement {
 	[RequireComponent(typeof(PlayerCharacter))]
 	[RequireComponent(typeof(Rigidbody2D))]
+	[RequireComponent(typeof(BallGrabber))]
 	public class SimpleMovement : MonoBehaviour {
 
 		Rigidbody2D rigid;
+		BallGrabber grabber;
 		AIControlled aiControl;
 		UserControlled userControl;
 
@@ -37,39 +39,37 @@ namespace Movement {
 		public UnityEngine.UI.Text debugOut;
 
 
-		GameObject[] ownTeam;
-		bool HasBall;
-		bool TeamHasBall;
+		GameObject[] ownTeam {
+			get  {
+				return grabber.ownTeam;
+			}
+		}
 		
 		public bool hasBall {
 			get  {
-				return HasBall;
+				return grabber.hasBall;
 			}
 			set  {
-				if (!HasBall && value)
-					GetBall();
-				if (HasBall && !value)
-					LooseBall();
+				grabber.hasBall = hasBall;
 			}
 		}
 
 		public bool teamHasBall {
 			get  {
-				return TeamHasBall;
-			}
-			set  {
-				onSolidGround = !value;
+				return grabber.teamHasBall;
 			}
 		}
 
 		Vector2 currentGoal;
+		GameObject ball;
 
 		public void RunTowards(Transform goal)  {
 			RunTowards (goal.position);
 		}
 		
 		public void RunTowards(Vector3 goal)  {
-			RunTowards (new Vector2(goal.x, goal.y));
+			var distance = goal - transform.position;
+			RunTowards (new Vector2 (distance.x, distance.y));
 		}
 
 		public void RunTowards(Vector2 goal)  {
@@ -86,12 +86,12 @@ namespace Movement {
 		}
 
 		public void GetBall()  {
-			HasBall = true;
+			hasBall = true;
 			TakeControl ();
 		}
 		
 		public void LooseBall()  {
-			HasBall = true;
+			hasBall = true;
 		}
 
 		public void TakeControl()  {
@@ -127,20 +127,20 @@ namespace Movement {
 
 		// Use this for initialization
 		void Start () {
+			grabber = GetComponent<BallGrabber> ();
 			rigid = GetComponent<Rigidbody2D>();
 			aiControl = GetComponent<AIControlled>();
 			userControl = GetComponent<UserControlled>();
 			aiControl.GetControl ();
-			ownTeam = GameObject.FindGameObjectsWithTag ("Character");
 		}
 		
 		// Update is called once per frame
 		void Update () {
-			TeamHasBall = false;
+/*			teamHasBall = false;
 			SimpleMovement othermover;
 			foreach (var Player in ownTeam)
-				if ((othermover = Player.GetComponent<SimpleMovement> ()) != null && othermover.HasBall)
-					TeamHasBall = true;
+				if ((othermover = Player.GetComponent<SimpleMovement> ()) != null && othermover.hasBall)
+					teamHasBall = true;*/
 		}
 
 		void RotateTowards(Vector2 goal)  {
@@ -162,10 +162,10 @@ namespace Movement {
 				debugOut.text = "";
 			//adapt values to if we have ball
 			float currentAcceleration = acceleration;
-			if (HasBall)
+			if (hasBall)
 				currentAcceleration -= accelerationBallMalus; 
 			float currentMaxSpeed = maxSpeed;
-			if (HasBall)
+			if (hasBall)
 				currentMaxSpeed -= maxSpeedBallMalus; 
 			Debug ("\nAcceleration: " + currentAcceleration.ToString ());
 			Debug ("\nMaxSpeed: " + currentMaxSpeed.ToString ());

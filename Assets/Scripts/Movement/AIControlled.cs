@@ -8,12 +8,14 @@ namespace Movement {
 		
 		SimpleMovement move;
 		bool currentControl;
-		
-		[Tooltip("Ball. Duh.")]
-		public Transform ball;
+
+		Transform ball;
 		[Tooltip("The degree of direction change when team doesn't have ball")]
 		[Range(0,1)]
 		public float randomness = 0.5f;
+
+		float ballRadius;
+		float characterRadius;
 
 		public void GetControl()  {
 			currentControl = true;
@@ -29,7 +31,9 @@ namespace Movement {
 
 		// Use this for initialization
 		void Start () {
-		
+			ball = GameObject.FindGameObjectWithTag ("Ball").transform;
+			ballRadius = ball.GetComponentInChildren<CircleCollider2D> ().radius;
+			characterRadius = GetComponentInChildren<CircleCollider2D> ().radius;
 		}
 
 		// Update is called once per frame
@@ -49,6 +53,12 @@ namespace Movement {
 					move.RunTowards(ball);
 				} 
 			}
+			
+			if ((ball.position - transform.position).magnitude < (ballRadius + characterRadius)) {
+				if (ball.transform.parent == null){
+					move.GetBall ();
+				} 
+			} 
 		}
 	}
 }
