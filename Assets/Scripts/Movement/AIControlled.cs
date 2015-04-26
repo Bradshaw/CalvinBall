@@ -35,7 +35,7 @@ namespace Movement {
 		void Update () {
 			move = GetComponent<SimpleMovement>();
 			if (HasControl()){
-				if (move.TeamHasBall) {
+				if (move.teamHasBall) {
 					//not ocmpeltely random as we bascially would not move.. just randomly in the general direction we were already running
 					move.RunTowards(
 							Vector2.Lerp(

@@ -8,12 +8,6 @@ namespace Movement {
 		Rigidbody2D rigid;
 		AIControlled aiControl;
 		UserControlled userControl;
-		
-		[Header("Properties controlling behaviour")]
-		[Tooltip("Determines if the Character has the Ball or not")]
-		public bool HasBall;
-		[Tooltip("Determines if the Player's team has the Ball or not")]
-		public bool TeamHasBall;
 
 		[Header("Randomized Values controlling the Character")]
 		[Tooltip("Maximum Speed for the Character")]
@@ -41,6 +35,32 @@ namespace Movement {
 		[Header("Debug")]
 		public UnityEngine.UI.Text debugOut;
 
+
+		GameObject[] ownTeam;
+		bool HasBall;
+		bool TeamHasBall;
+		
+		public bool hasBall {
+			get  {
+				return HasBall;
+			}
+			set  {
+				if (!HasBall && value)
+					GetBall();
+				if (HasBall && !value)
+					LooseBall();
+			}
+		}
+
+		public bool teamHasBall {
+			get  {
+				return TeamHasBall;
+			}
+			set  {
+				onSolidGround = !value;
+			}
+		}
+
 		Vector2 currentGoal;
 
 		public void RunTowards(Transform goal)  {
@@ -53,6 +73,31 @@ namespace Movement {
 
 		public void RunTowards(Vector2 goal)  {
 			currentGoal = goal;
+		}
+
+		public void PlayerControl()  {
+			aiControl.LooseControl();
+			userControl.GetControl();
+		}
+		public void AIControl()  {
+			aiControl.GetControl();
+			userControl.LooseControl();
+		}
+
+		public void GetBall()  {
+			HasBall = true;
+			TakeControl ();
+		}
+		
+		public void LooseBall()  {
+			HasBall = true;
+		}
+
+		public void TakeControl()  {
+			foreach (var Player in ownTeam)
+				if (Player.gameObject != gameObject)
+					Player.GetComponent<SimpleMovement> ().AIControl ();
+			PlayerControl ();
 		}
 
 		public Vector2 Forward {
@@ -85,14 +130,15 @@ namespace Movement {
 			aiControl = GetComponent<AIControlled>();
 			userControl = GetComponent<UserControlled>();
 			aiControl.GetControl ();
+			ownTeam = GameObject.FindGameObjectsWithTag ("Character");
 		}
 		
 		// Update is called once per frame
 		void Update () {
-			if (HasBall && aiControl.HasControl()) {
-				aiControl.LooseControl();
-				userControl.GetControl();
-			}
+			TeamHasBall = false;
+			foreach (var Player in ownTeam)
+				if (Player.GetComponent<SimpleMovement> ().HasBall)
+					TeamHasBall = true;
 		}
 
 		void RotateTowards(Vector2 goal)  {
