@@ -5,7 +5,11 @@ namespace Movement {
 	[RequireComponent(typeof(PlayerCharacter))]
 	[RequireComponent(typeof(SimpleMovement))]
 	public class BallGrabber : MonoBehaviour {
-		
+
+		Transform ball;
+		float ballRadius;
+		float characterRadius;
+
 		SimpleMovement move;
 		PlayerCharacter playerC;
 
@@ -30,19 +34,21 @@ namespace Movement {
 			get  {
 				return TeamHasBall;
 			}
-			set  {
-				//onSolidGround = !value;
-			}
 		}
 		
 		
 		public void GetBall()  {
 			HasBall = true;
-			//TakeControl ();
+			TeamHasBall = true;
+			BallTeam = playerC.team;
+			ball.parent = transform;
+			ball.localPosition = new Vector3 (ballRadius+characterRadius, 0, 0);
+			move.TakeControl ();
 		}
 		
 		
 		public void LooseBall()  {
+			ball.parent = null;
 			HasBall = true;
 		}
 
@@ -52,12 +58,22 @@ namespace Movement {
 			move = GetComponent<SimpleMovement>();
 			playerC = GetComponent<PlayerCharacter>();
 			ownTeam = GameObject.FindGameObjectsWithTag ("Character");
+			ball = GameObject.FindGameObjectWithTag ("Ball").transform;
+			ballRadius = ball.GetComponentInChildren<CircleCollider2D> ().radius;
+			characterRadius = GetComponentInChildren<CircleCollider2D> ().radius;
 			BallTeam = Team.NONE;
 		}
 		
 		// Update is called once per frame
 		void Update () {
-		
+			if ((ball.position - transform.position).magnitude < (ballRadius + characterRadius)) {
+				if (ball.transform.parent == null){
+					GetBall ();
+				} 
+			} 
+
+			if (BallTeam == playerC.team)
+				TeamHasBall = true;
 		}
 	}
 }

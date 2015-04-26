@@ -85,18 +85,10 @@ namespace Movement {
 			userControl.LooseControl();
 		}
 
-		public void GetBall()  {
-			hasBall = true;
-			TakeControl ();
-		}
-		
-		public void LooseBall()  {
-			hasBall = true;
-		}
 
 		public void TakeControl()  {
 			foreach (var Player in ownTeam)
-				if (Player.gameObject != gameObject)
+				if (Player.gameObject != gameObject && Player.GetComponent<SimpleMovement> ()!= null)
 					Player.GetComponent<SimpleMovement> ().AIControl ();
 			PlayerControl ();
 		}
@@ -136,11 +128,6 @@ namespace Movement {
 		
 		// Update is called once per frame
 		void Update () {
-/*			teamHasBall = false;
-			SimpleMovement othermover;
-			foreach (var Player in ownTeam)
-				if ((othermover = Player.GetComponent<SimpleMovement> ()) != null && othermover.hasBall)
-					teamHasBall = true;*/
 		}
 
 		void RotateTowards(Vector2 goal)  {
