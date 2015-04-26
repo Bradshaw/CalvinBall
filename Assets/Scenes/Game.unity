@@ -1037,6 +1037,14 @@ Prefab:
       propertyPath: team
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5009252, guid: 6be60b524af6ff54dbadab616214bda6, type: 2}
+      propertyPath: m_Mass
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 5009252, guid: 6be60b524af6ff54dbadab616214bda6, type: 2}
+      propertyPath: m_LinearDrag
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6be60b524af6ff54dbadab616214bda6, type: 2}
   m_IsPrefabParent: 0
@@ -1084,7 +1092,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeed: 1.5
   maxSpeedBallMalus: 0
-  acceleration: 5
+  acceleration: 450
   accelerationBallMalus: 0
   onSolidGround: 0
   rotateSpeed: 2
