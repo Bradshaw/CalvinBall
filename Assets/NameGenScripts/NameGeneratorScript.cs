@@ -5,6 +5,8 @@ using System.Collections.Generic;
 
 public class NameGeneratorScript : MonoBehaviour {
 
+	public List<Font> fontList = new List<Font>();
+
 	public List<Rule> received_list = new List<Rule>();
 
 	string[] hyperlative_adjectives = {"super","hyper","retro","ultra"};
@@ -16,8 +18,14 @@ public class NameGeneratorScript : MonoBehaviour {
 
 	string[] last_word_list = {"ball","bullet"," of Death","disc"};
 
+	Vector3 initial_position = new Vector3();
+
 	// Use this for initialization
 	void Start () {
+
+		initial_position = this.transform.position;
+
+		GetComponent<TextMesh>().font = fontList[Random.Range(0,fontList.Count-1)];
 
 	}
 	
@@ -50,7 +58,7 @@ public class NameGeneratorScript : MonoBehaviour {
 		}*/
 	}
 
-	void makeRandomNameForSport(List<Rule> from_received_list)
+	void makeRandomNameForSport(List<string> from_received_list)
 	{
 		/*for(int i=0;i<from_received_list.Count;i++)
 		{
@@ -171,7 +179,6 @@ public class NameGeneratorScript : MonoBehaviour {
 
 		string pre_final_mix = random_hyperlative+random_scoring+random_foul+random_round_finisher+random_last_word; 
 
-
 		if(pre_final_mix.Length > 1)
 		{
 
@@ -179,6 +186,22 @@ public class NameGeneratorScript : MonoBehaviour {
 		}
 
 		GetComponent<TextMesh>().text = final_mix;
+
+
+		GetComponent<Rigidbody>().AddForce(new Vector3(0,0,-200));
+
+		/*int counter = 8;
+
+		for(int i=1;i<counter;i++)
+		{
+			Vector3 temp_position = initial_position;
+
+			temp_position.y = temp_position.y - 0.8f*i;
+			temp_position.z = temp_position.z + 2f*i;
+
+			GameObject.Instantiate(this,temp_position,Quaternion.identity);
+		}*/
+
 	}
 
 

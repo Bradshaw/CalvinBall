@@ -37,8 +37,7 @@ public class TestCall : MonoBehaviour {
 			temp_list.Add (test_rule2);
 			temp_list.Add (test_rule3);
 
-
-			GameObject.Find ("TestText").SendMessage ("makeRandomNameForSport",temp_list);
+			GameObject.FindGameObjectWithTag("TitleText").SendMessage ("makeRandomNameForSport",temp_list);
 		}
 
 	}
