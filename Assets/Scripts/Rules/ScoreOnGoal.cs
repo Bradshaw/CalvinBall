@@ -5,13 +5,14 @@ public class ScoreOnGoal : MonoBehaviour {
 
     public override string ToString()
     {
-        return "Score on goal";
+        return "Score on regular goal";
     }
 
     void OnEnable()
     {
         GameEvent.OnGoal += GivePoint;
     }
+
     void OnDisable()
     {
         GameEvent.OnGoal -= GivePoint;
@@ -22,10 +23,10 @@ public class ScoreOnGoal : MonoBehaviour {
         switch (against)
         {
             case Team.RED:
-                //Give points to BLUE
+                Engine.Proxy.currentPersistent.GetComponent<KeepScore>().BlueScore++;
                 break;
             case Team.BLUE:
-                //Give points to RED
+                Engine.Proxy.currentPersistent.GetComponent<KeepScore>().RedScore++;
                 break;
         }
     }
