@@ -5,7 +5,7 @@ public class ScoreOnOwnGoal : MonoBehaviour {
 
     public override string ToString()
     {
-        return "Score on own goal";
+        return "backstab|SCORE";
     }
 
     void OnEnable()

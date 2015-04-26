@@ -82,16 +82,16 @@ public class NameGeneratorScript : MonoBehaviour {
 
 		float last_word_probability = 0;
 	
-		Rule test_rule = gameObject.AddComponent<Rule>();
+		//Rule test_rule = gameObject.AddComponent<Rule>();
 		string test_rule_string = from_received_list[Random.Range(0,from_received_list.Count)].ToString();
 
-		//string[] test_rule_array = test_rule_string.Split("|");
+		string[] test_rule_array = test_rule_string.Split('|');
+				
+		string test_rule_name = test_rule_array[0];
+		string test_rule_type = test_rule_array[1];
 
-		//string test_rule_name = test_rule_array[0];
-		//string test_rule_type = test_rule_array[1];
-
-		string test_rule_name = "Break";
-		string test_rule_type = "POINTS";
+		/*string test_rule_name = "Break";
+		string test_rule_type = "POINTS";*/
 	
 
 		switch(test_rule_type)
@@ -186,8 +186,7 @@ public class NameGeneratorScript : MonoBehaviour {
 		}
 
 		GetComponent<TextMesh>().text = final_mix;
-
-
+		
 		GetComponent<Rigidbody>().AddForce(new Vector3(0,0,-200));
 
 		/*int counter = 8;

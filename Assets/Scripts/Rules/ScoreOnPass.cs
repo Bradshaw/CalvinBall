@@ -5,7 +5,7 @@ public class ScoreOnPass : Rule {
 
     public override string ToString()
     {
-        return "Score on pass";
+        return "pass|SCORE";
     }
 
     void OnEnable()

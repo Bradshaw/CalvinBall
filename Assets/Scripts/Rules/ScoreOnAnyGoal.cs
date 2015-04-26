@@ -5,7 +5,7 @@ public class ScoreOnAnyGoal : MonoBehaviour {
 
     public override string ToString()
     {
-        return "Score on any goal";
+        return "bothways|SCORE";
     }
 
     void OnEnable()
