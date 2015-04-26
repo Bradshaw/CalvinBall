@@ -34,6 +34,9 @@ namespace Movement {
 				onSolidGround = !value;
 			}
 		}
+		
+		[Header("Debug")]
+		public UnityEngine.UI.Text debugOut;
 
 		Vector2 currentGoal;
 
@@ -64,9 +67,9 @@ namespace Movement {
 			if (Angle == 0)
 				return 1;
 			if (Angle < 180) {
-				return 1 - (180 / Angle);
+				return 1 - (Angle/180);
 			}
-			return AngleEfficency (Mathf.Abs (Angle - 360));
+			return ((Angle-180)/180);
 		}
 
 		float MovementEfficency(Vector2 goal)  {
@@ -94,6 +97,7 @@ namespace Movement {
 		}
 
 		void FixedUpdate () {
+			debugOut.text = "";
 			//adapt values to if we have ball
 			float currentAcceleration = acceleration;
 			if (HasBall)
@@ -101,9 +105,15 @@ namespace Movement {
 			float currentMaxSpeed = maxSpeed;
 			if (HasBall)
 				currentMaxSpeed -= maxSpeedBallMalus; 
+			debugOut.text += "\nAcceleration: " + currentAcceleration.ToString ();
+			debugOut.text += "\nMaxSpeed: " + currentMaxSpeed.ToString ();
+			debugOut.text += "\nCurrentSpeed: " +  rigid.velocity.magnitude.ToString ();
 
 			//on ice, still not max speed
 			if (onIce && rigid.velocity.magnitude < currentMaxSpeed) {
+				debugOut.text += "\nON ICE";
+				debugOut.text += "\nMovementEfficency: " +  MovementEfficency(currentGoal).ToString ();
+				debugOut.text += "\nAdding Force: " +  (currentGoal * MovementEfficency(currentGoal) * currentAcceleration).ToString ();
 				rigid.AddForce (currentGoal * MovementEfficency(currentGoal) * currentAcceleration);
 			}
 
@@ -112,16 +122,23 @@ namespace Movement {
 				RotateTowards(currentGoal);
 			} else  {
 				//we're on solid ground, so perfect transfere of speed when rotating
+				/*
+				 * removed because meaybe it's better without?
 				float speed = rigid.velocity.magnitude;
 				rigid.velocity = Vector2.zero;
 				RotateTowards(currentGoal);
-				rigid.velocity = Forward * speed;
+				rigid.velocity = Forward * speed; */
+				RotateTowards(currentGoal);
 			} 
 
 			//on solid ground, still not max speed
 			if (onSolidGround && rigid.velocity.magnitude < currentMaxSpeed) {
+				debugOut.text += "\nON SOLID GROUND";
+				debugOut.text += "\nAdding Force: " +  (currentGoal * currentAcceleration).ToString ();
+
 				rigid.AddForce (currentGoal * currentAcceleration);
 			}
+			debugOut.text += "\nCurrentSpeed after Updates: " +  rigid.velocity.magnitude.ToString ();
 		}
 	}
 
