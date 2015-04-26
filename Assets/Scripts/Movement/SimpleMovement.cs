@@ -85,18 +85,10 @@ namespace Movement {
 			userControl.LooseControl();
 		}
 
-		public void GetBall()  {
-			hasBall = true;
-			TakeControl ();
-		}
-		
-		public void LooseBall()  {
-			hasBall = true;
-		}
 
 		public void TakeControl()  {
 			foreach (var Player in ownTeam)
-				if (Player.gameObject != gameObject)
+				if (Player.gameObject != gameObject && Player.GetComponent<SimpleMovement> ()!= null)
 					Player.GetComponent<SimpleMovement> ().AIControl ();
 			PlayerControl ();
 		}
@@ -136,11 +128,6 @@ namespace Movement {
 		
 		// Update is called once per frame
 		void Update () {
-/*			teamHasBall = false;
-			SimpleMovement othermover;
-			foreach (var Player in ownTeam)
-				if ((othermover = Player.GetComponent<SimpleMovement> ()) != null && othermover.hasBall)
-					teamHasBall = true;*/
 		}
 
 		void RotateTowards(Vector2 goal)  {
@@ -152,10 +139,10 @@ namespace Movement {
 
 		}
 
-		void Debug (string text)  {
+		/*void //Debug (string text)  {
 			if (debugOut!= null)
 				debugOut.text += text;
-		}
+		}*/
 
 		void FixedUpdate () {
 			if (debugOut!= null)
@@ -167,16 +154,16 @@ namespace Movement {
 			float currentMaxSpeed = maxSpeed;
 			if (hasBall)
 				currentMaxSpeed -= maxSpeedBallMalus; 
-			Debug ("\nAcceleration: " + currentAcceleration.ToString ());
-			Debug ("\nMaxSpeed: " + currentMaxSpeed.ToString ());
-			Debug ("\nCurrentSpeed: " +  rigid.velocity.magnitude.ToString ());
+			//Debug ("\nAcceleration: " + currentAcceleration.ToString ());
+			//Debug ("\nMaxSpeed: " + currentMaxSpeed.ToString ());
+			//Debug ("\nCurrentSpeed: " +  rigid.velocity.magnitude.ToString ());
 
 			//on ice, still not max speed
 			if (onIce && rigid.velocity.magnitude < currentMaxSpeed) {
 
-				Debug ("\nON ICE");
-				Debug ("\nMovementEfficency: " +  MovementEfficency(currentGoal).ToString ());
-				Debug ("\nAdding Force: " +  (currentGoal * MovementEfficency(currentGoal) * currentAcceleration).ToString ());
+				//Debug ("\nON ICE");
+				//Debug ("\nMovementEfficency: " +  MovementEfficency(currentGoal).ToString ());
+				//Debug ("\nAdding Force: " +  (currentGoal * MovementEfficency(currentGoal) * currentAcceleration).ToString ());
 				rigid.AddForce (currentGoal * MovementEfficency(currentGoal) * currentAcceleration);
 			}
 
@@ -195,12 +182,12 @@ namespace Movement {
 
 			//on solid ground, still not max speed
 			if (onSolidGround && rigid.velocity.magnitude < currentMaxSpeed) {
-				Debug ( "\nON SOLID GROUND");
-				Debug ("\nAdding Force: " +  (currentGoal * currentAcceleration).ToString ());
+				//Debug ( "\nON SOLID GROUND");
+				//Debug ("\nAdding Force: " +  (currentGoal * currentAcceleration).ToString ());
 
 				rigid.AddForce (currentGoal * currentAcceleration);
 			}
-			Debug ("\nCurrentSpeed after Updates: " +  rigid.velocity.magnitude.ToString ());
+			//Debug ("\nCurrentSpeed after Updates: " +  rigid.velocity.magnitude.ToString ());
 		}
 	}
 

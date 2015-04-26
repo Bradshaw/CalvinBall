@@ -7,7 +7,7 @@ namespace Engine {
 		public GameObject PersistentPrefab;
 		public string DefaultScene = "Menu";
 
-		private static GameObject currentPersistent;
+		public static GameObject currentPersistent;
 		public GameObject current {
 			get {
 				if (currentPersistent==null)

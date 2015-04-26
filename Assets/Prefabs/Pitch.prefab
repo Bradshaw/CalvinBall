@@ -128,7 +128,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &116134
 GameObject:
   m_ObjectHideFlags: 1
@@ -139,6 +139,7 @@ GameObject:
   - 4: {fileID: 436398}
   - 61: {fileID: 6179496}
   - 114: {fileID: 11455170}
+  - 114: {fileID: 11478250}
   m_Layer: 0
   m_Name: RightGoal
   m_TagString: Untagged
@@ -172,6 +173,7 @@ GameObject:
   - 4: {fileID: 468464}
   - 61: {fileID: 6141242}
   - 114: {fileID: 11444162}
+  - 114: {fileID: 11454098}
   m_Layer: 0
   m_Name: LeftGoal
   m_TagString: Untagged
@@ -466,7 +468,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &172936
 GameObject:
   m_ObjectHideFlags: 1
@@ -1494,6 +1496,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   color: {r: 0, g: 0, b: 1, a: 1}
   size: .25
+--- !u!114 &11454098
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 117358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de34ca5713d175549b99f54f955ffd14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  side: 1
 --- !u!114 &11454222
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1649,6 +1663,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 376ea3808eff0d44585d27638965cdb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11478250
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 116134}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de34ca5713d175549b99f54f955ffd14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  side: 2
 --- !u!114 &11481952
 MonoBehaviour:
   m_ObjectHideFlags: 1

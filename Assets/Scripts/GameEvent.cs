@@ -38,8 +38,9 @@ public class GameEvent : MonoBehaviour
 
     public delegate void GoalAction(PlayerCharacter lastPossessor, Team against);
     public static event GoalAction OnGoal;
-    public static void RaiseOnPass(PlayerCharacter lastPossessor, Team against)
+    public static void RaiseOnGoal(PlayerCharacter lastPossessor, Team against)
     {
+        Debug.Log("GOOOOOAAAAAL");
         if (OnGoal != null)
             OnGoal(lastPossessor, against);
     }
