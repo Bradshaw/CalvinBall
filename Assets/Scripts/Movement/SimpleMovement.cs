@@ -34,6 +34,9 @@ namespace Movement {
 				onSolidGround = !value;
 			}
 		}
+		[Tooltip("RotationSpeed for the Character")]
+		public float rotateSpeed = 2;
+
 		
 		[Header("Debug")]
 		public UnityEngine.UI.Text debugOut;
@@ -93,11 +96,22 @@ namespace Movement {
 		}
 
 		void RotateTowards(Vector2 goal)  {
-			
+			if (goal.magnitude>0.2f) {
+				transform.right = Vector3.RotateTowards (transform.right, new Vector3(goal.x, goal.y,0),rotateSpeed,rotateSpeed);
+				if (transform.localEulerAngles.y == 180)
+					transform.localEulerAngles = new Vector3 (0, 0, 180);
+			}
+
+		}
+
+		void Debug (string text)  {
+			if (debugOut!= null)
+				debugOut.text += text;
 		}
 
 		void FixedUpdate () {
-			debugOut.text = "";
+			if (debugOut!= null)
+				debugOut.text = "";
 			//adapt values to if we have ball
 			float currentAcceleration = acceleration;
 			if (HasBall)
@@ -105,15 +119,16 @@ namespace Movement {
 			float currentMaxSpeed = maxSpeed;
 			if (HasBall)
 				currentMaxSpeed -= maxSpeedBallMalus; 
-			debugOut.text += "\nAcceleration: " + currentAcceleration.ToString ();
-			debugOut.text += "\nMaxSpeed: " + currentMaxSpeed.ToString ();
-			debugOut.text += "\nCurrentSpeed: " +  rigid.velocity.magnitude.ToString ();
+			Debug ("\nAcceleration: " + currentAcceleration.ToString ());
+			Debug ("\nMaxSpeed: " + currentMaxSpeed.ToString ());
+			Debug ("\nCurrentSpeed: " +  rigid.velocity.magnitude.ToString ());
 
 			//on ice, still not max speed
 			if (onIce && rigid.velocity.magnitude < currentMaxSpeed) {
-				debugOut.text += "\nON ICE";
-				debugOut.text += "\nMovementEfficency: " +  MovementEfficency(currentGoal).ToString ();
-				debugOut.text += "\nAdding Force: " +  (currentGoal * MovementEfficency(currentGoal) * currentAcceleration).ToString ();
+
+				Debug ("\nON ICE");
+				Debug ("\nMovementEfficency: " +  MovementEfficency(currentGoal).ToString ());
+				Debug ("\nAdding Force: " +  (currentGoal * MovementEfficency(currentGoal) * currentAcceleration).ToString ());
 				rigid.AddForce (currentGoal * MovementEfficency(currentGoal) * currentAcceleration);
 			}
 
@@ -122,23 +137,22 @@ namespace Movement {
 				RotateTowards(currentGoal);
 			} else  {
 				//we're on solid ground, so perfect transfere of speed when rotating
-				/*
-				 * removed because meaybe it's better without?
+
 				float speed = rigid.velocity.magnitude;
 				rigid.velocity = Vector2.zero;
 				RotateTowards(currentGoal);
-				rigid.velocity = Forward * speed; */
-				RotateTowards(currentGoal);
+				rigid.velocity = Forward * speed; 
+				//RotateTowards(currentGoal);
 			} 
 
 			//on solid ground, still not max speed
 			if (onSolidGround && rigid.velocity.magnitude < currentMaxSpeed) {
-				debugOut.text += "\nON SOLID GROUND";
-				debugOut.text += "\nAdding Force: " +  (currentGoal * currentAcceleration).ToString ();
+				Debug ( "\nON SOLID GROUND");
+				Debug ("\nAdding Force: " +  (currentGoal * currentAcceleration).ToString ());
 
 				rigid.AddForce (currentGoal * currentAcceleration);
 			}
-			debugOut.text += "\nCurrentSpeed after Updates: " +  rigid.velocity.magnitude.ToString ();
+			Debug ("\nCurrentSpeed after Updates: " +  rigid.velocity.magnitude.ToString ());
 		}
 	}
 
