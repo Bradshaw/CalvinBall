@@ -27,7 +27,6 @@ public class NameGeneratorScript : MonoBehaviour {
 
 	string makeRandomNameForSport()
 	{
-		string final_name = "";
 
 		string random_hyperlative = "";
 		string random_scoring = "";
@@ -84,7 +83,7 @@ public class NameGeneratorScript : MonoBehaviour {
 
 		string final_mix = "";
 
-		string pre_final_mix = random_hyperlative+random_scoring+random_last_word; 
+		string pre_final_mix = random_hyperlative+random_scoring+random_foul+random_round_finisher+random_last_word; 
 
 
 		if(pre_final_mix.Length > 1)
