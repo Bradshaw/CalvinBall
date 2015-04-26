@@ -2,6 +2,7 @@
 using System.Collections;
 
 namespace Movement {
+	[RequireComponent(typeof(PlayerCharacter))]
 	[RequireComponent(typeof(SimpleMovement))]
 	public class UserControlled : MonoBehaviour, IMovementController {
 
@@ -12,10 +13,10 @@ namespace Movement {
 
 
 		SimpleMovement move;
+		PlayerCharacter playerC;
 		bool currentControl;
 
-		[Tooltip("Which player is this")]
-		public Player player;
+		Player player;
 		
 		public void GetControl()  {
 			currentControl = true;
@@ -33,6 +34,10 @@ namespace Movement {
 		// Use this for initialization
 		void Start () {
 			move = GetComponent<SimpleMovement>();
+			playerC = GetComponent<PlayerCharacter>();
+			player = Player.Player1;
+			if (playerC.team == Team.RED)
+				player = Player.Player2;
 		}
 		
 		// Update is called once per frame

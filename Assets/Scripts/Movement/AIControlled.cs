@@ -2,6 +2,7 @@
 using System.Collections;
 
 namespace Movement {
+	[RequireComponent(typeof(PlayerCharacter))]
 	[RequireComponent(typeof(SimpleMovement))]
 	public class AIControlled : MonoBehaviour, IMovementController {
 		

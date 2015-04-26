@@ -2,6 +2,7 @@
 using System.Collections;
 
 namespace Movement {
+	[RequireComponent(typeof(PlayerCharacter))]
 	[RequireComponent(typeof(Rigidbody2D))]
 	public class SimpleMovement : MonoBehaviour {
 
