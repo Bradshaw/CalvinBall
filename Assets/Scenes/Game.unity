@@ -555,6 +555,10 @@ Prefab:
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 5889394, guid: df3102a70f0a9c74f8b953abcaa12dce, type: 2}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: 0c2e3490363479b498d4afb96cd6fcac, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: df3102a70f0a9c74f8b953abcaa12dce, type: 2}
   m_IsPrefabParent: 0
@@ -1093,6 +1097,19 @@ MonoBehaviour:
   onSolidGround: 0
   rotateSpeed: 2
   debugOut: {fileID: 1539851406}
+--- !u!114 &2093626260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2093626256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a81550f81338a6049a4286a341052725, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  KickForce: 100
+  GrabCooldown: 1
 --- !u!114 &2093626263
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1104,6 +1121,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ff977ed08c4c914f82a5e1de860889a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ball: {fileID: 0}
+  nextGrabPossible: 0
   ownTeam: []
   HasBall: 0
   TeamHasBall: 0

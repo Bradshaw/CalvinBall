@@ -4,6 +4,7 @@ using System.Collections;
 namespace Movement {
 	[RequireComponent(typeof(PlayerCharacter))]
 	[RequireComponent(typeof(SimpleMovement))]
+	[RequireComponent(typeof(BallKicker))]
 	public class UserControlled : MonoBehaviour, IMovementController {
 
 		public enum Player {
@@ -14,6 +15,7 @@ namespace Movement {
 
 		SimpleMovement move;
 		PlayerCharacter playerC;
+		BallKicker ballKicker;
 		bool currentControl;
 
 		Player player;
@@ -35,6 +37,7 @@ namespace Movement {
 		void Start () {
 			move = GetComponent<SimpleMovement>();
 			playerC = GetComponent<PlayerCharacter>();
+			ballKicker = GetComponent<BallKicker>();
 			player = Player.Player1;
 			if (playerC.team == Team.RED)
 				player = Player.Player2;
@@ -47,6 +50,8 @@ namespace Movement {
 
 			if (HasControl()){
 				move.RunTowards(new Vector2(h, v));
+				if (Input.GetButton ("Kick" + player.ToString()))
+					ballKicker.Kick();
 			}
 		}
 	}
