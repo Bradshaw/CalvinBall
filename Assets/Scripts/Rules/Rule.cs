@@ -10,8 +10,12 @@ public enum RuleType
     constraint
 }
 
-public class Rule : MonoBehaviour {
-    public const string name = "NORULE";
-    public const RuleType type = RuleType.nil;
+public class Rule : MonoBehaviour 
+{ 
+	public override string ToString ()
+	{
+		return "NORULE|NOTYPE";
+	}
+
 
 }
