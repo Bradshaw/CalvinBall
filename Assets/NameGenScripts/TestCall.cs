@@ -14,7 +14,7 @@ public class TestCall : MonoBehaviour {
 	
 		if (Input.GetKeyDown("space"))
 		{
-			Rule test_rule1 = gameObject.AddComponent<Rule>();
+			/*Rule test_rule1 = gameObject.AddComponent<Rule>();
 			Rule test_rule2 = gameObject.AddComponent<Rule>();
 			Rule test_rule3 = gameObject.AddComponent<Rule>();
 
@@ -24,9 +24,13 @@ public class TestCall : MonoBehaviour {
 
 			test_rule1.type = RuleType.points;
 			test_rule2.type = RuleType.foul;
-			test_rule3.type = RuleType.finisher;
+			test_rule3.type = RuleType.finisher;*/
 
-			List<Rule> temp_list = new List<Rule>();
+			string test_rule1 = "backstab|SCORE";
+			string test_rule2 = "bounce|FOUL";
+			string test_rule3 = "tictac|FINISHER";
+
+			List<string> temp_list = new List<string>();
 
 
 			temp_list.Add (test_rule1);

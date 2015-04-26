@@ -16,4 +16,5 @@ public class Rule : MonoBehaviour
 	{
 		return "NORULE|NOTYPE";
 	}
+
 }
