@@ -417,7 +417,7 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 50a65fecb3b57624a9d73a0c5f022ef5, type: 2}
   m_IsPrefabParent: 0
---- !u!114 &1058355759
+--- !u!114 &1058355759 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 11467602, guid: 50a65fecb3b57624a9d73a0c5f022ef5,
     type: 2}
@@ -885,7 +885,7 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1787910452}
---- !u!4 &2031496030
+--- !u!4 &2031496030 stripped
 Transform:
   m_PrefabParentObject: {fileID: 442954, guid: df3102a70f0a9c74f8b953abcaa12dce, type: 2}
   m_PrefabInternal: {fileID: 1127292805}
@@ -939,11 +939,11 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6be60b524af6ff54dbadab616214bda6, type: 2}
   m_IsPrefabParent: 0
---- !u!4 &2093626255
+--- !u!4 &2093626255 stripped
 Transform:
   m_PrefabParentObject: {fileID: 462980, guid: 6be60b524af6ff54dbadab616214bda6, type: 2}
   m_PrefabInternal: {fileID: 2093626254}
---- !u!1 &2093626256
+--- !u!1 &2093626256 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 193210, guid: 6be60b524af6ff54dbadab616214bda6, type: 2}
   m_PrefabInternal: {fileID: 2093626254}
@@ -971,7 +971,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53a7f5043bd101a4188d5304bddcce4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: 0
 --- !u!114 &2093626259
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -983,8 +982,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f730b5b43266cd4f8c4b51c4fe739f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HasBall: 1
-  TeamHasBall: 0
   maxSpeed: 1.5
   maxSpeedBallMalus: 0
   acceleration: 5

@@ -137,8 +137,9 @@ namespace Movement {
 		// Update is called once per frame
 		void Update () {
 			TeamHasBall = false;
+			SimpleMovement othermover;
 			foreach (var Player in ownTeam)
-				if (Player.GetComponent<SimpleMovement> ().HasBall)
+				if ((othermover = Player.GetComponent<SimpleMovement> ()) != null && othermover.HasBall)
 					TeamHasBall = true;
 		}
 
