@@ -4,9 +4,11 @@ using System.Collections;
 namespace Movement {
 	[RequireComponent(typeof(PlayerCharacter))]
 	[RequireComponent(typeof(SimpleMovement))]
+	[RequireComponent(typeof(BallGrabber))]
 	public class AIControlled : MonoBehaviour, IMovementController {
 		
 		SimpleMovement move;
+		BallGrabber grabber;
 		bool currentControl;
 
 		Transform ball;
@@ -29,13 +31,14 @@ namespace Movement {
 		// Use this for initialization
 		void Start () {
 			ball = GameObject.FindGameObjectWithTag ("Ball").transform;
+			grabber = GetComponent<BallGrabber>();
 		}
 
 		// Update is called once per frame
 		void Update () {
 			move = GetComponent<SimpleMovement>();
 			if (HasControl()){
-				if (move.teamHasBall) {
+				if (grabber.teamHasBall) {
 					//not ocmpeltely random as we bascially would not move.. just randomly in the general direction we were already running
 					move.RunTowards(
 							Vector2.Lerp(
